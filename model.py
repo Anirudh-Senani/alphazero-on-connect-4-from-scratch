@@ -88,8 +88,27 @@ def four_in_a_row_diagonal_down_right(board):
 
     return 1 if win1 else 2 if win2 else 0
 
-# Step 9 - four_in_a_row_diagonal_up_right (not yet solved)
-# TODO: implement
+# Step 9 - four_in_a_row_diagonal_up_right
+def four_in_a_row_diagonal_up_right(board):
+    # TODO: scan every up-right diagonal for four consecutive matching non-zero pieces
+    r_idx = np.array([3, 4, 5])[:, None, None]  # shape (3, 1, 1)
+    c_idx = np.array([0, 1, 2, 3])[None, :, None] # shape (1, 4, 1)
+    diags_idx = np.array([0, 1, 2, 3])[None, None, :] # shape (1, 1, 4)
+
+    # Grid of coordinates
+    R_pos = r_idx - diags_idx
+    C_pos = c_idx + diags_idx
+
+    # Extract all positive 4-length diagonals: shape (3, 4, 4)
+    neg_diags = board[R_pos, C_pos]
+    # Check if all 4 elements in the last axis are equal to the first element
+    win1 = np.all((neg_diags == neg_diags[:, :, :1]) & (neg_diags==1), axis=2)
+    win2 = np.all((neg_diags == neg_diags[:, :, :1]) & (neg_diags==2), axis=2)
+    # print(pos_match)
+    win1 = np.any(win1)
+    win2 = np.any(win2)
+
+    return 1 if win1 else 2 if win2 else 0
 
 # Step 10 - check_winner (not yet solved)
 # TODO: implement
