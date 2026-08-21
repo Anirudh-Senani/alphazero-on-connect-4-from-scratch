@@ -339,8 +339,10 @@ def make_mcts_node(prior=0.0, parent=None):
         parent=parent
     )
 
-# Step 28 - node_q_value (not yet solved)
-# TODO: implement
+# Step 28 - node_q_value
+def node_q_value(node):
+    # TODO: return the mean value Q = value_sum / visit_count, or 0.0 if visit_count == 0
+    return node['value_sum']/node['visit_count'] if node['visit_count'] > 0 else 0.0
 
 # Step 29 - ucb_score (not yet solved)
 # TODO: implement
