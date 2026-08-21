@@ -167,8 +167,16 @@ def encode_board(board, current_player):
 
     return np.stack([current_channel, opponent_channel], dtype=np.float32)
 
-# Step 16 - board_to_torch_tensor (not yet solved)
-# TODO: implement
+# Step 16 - board_to_torch_tensor
+import torch
+
+
+def board_to_torch_tensor(board, current_player):
+    # TODO: encode the board and return it as a float32 torch tensor of shape (1, 2, 6, 7).
+    encoding = encode_board(board, current_player)
+    encoding = torch.from_numpy(encoding).float()
+
+    return torch.unsqueeze(encoding, 0)
 
 # Step 17 - init_conv_backbone (not yet solved)
 # TODO: implement
