@@ -344,8 +344,12 @@ def node_q_value(node):
     # TODO: return the mean value Q = value_sum / visit_count, or 0.0 if visit_count == 0
     return node['value_sum']/node['visit_count'] if node['visit_count'] > 0 else 0.0
 
-# Step 29 - ucb_score (not yet solved)
-# TODO: implement
+# Step 29 - ucb_score
+import math
+
+def ucb_score(parent, child, c_puct=1.5):
+    # TODO: return Q(child) + c_puct * prior * sqrt(N_parent) / (1 + N_child)
+    return node_q_value(child) + c_puct * child['prior'] * math.sqrt(parent['visit_count'])/(1 + child['visit_count'])
 
 # Step 30 - select_best_child (not yet solved)
 # TODO: implement
