@@ -45,8 +45,21 @@ def valid_moves(board):
     rows, cols = board.shape
     return [col for col in range(cols) if not column_full(board, col)]
 
-# Step 6 - four_in_a_row_horizontal (not yet solved)
-# TODO: implement
+# Step 6 - four_in_a_row_horizontal
+def four_in_a_row_horizontal(board):
+    # TODO: scan every row for four consecutive matching non-zero pieces horizontally
+    rows, cols = board.shape
+    slices = []
+    for i in range(cols-3):
+        slices.append(board[:, i:i+4])
+
+    win1 = np.full((rows, 4), False)
+    win2 = np.full((rows, 4), False)
+    for i in range(len(slices)):
+        win1 = win1 | np.all(slices[i]==1, axis=-1, keepdims=True)
+        win2 = win2 | np.all(slices[i]==2, axis=-1, keepdims=True)
+
+    return 1 if np.any(win1) else 2 if np.any(win2) else 0
 
 # Step 7 - four_in_a_row_vertical (not yet solved)
 # TODO: implement
