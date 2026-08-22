@@ -679,8 +679,24 @@ def greedy_agent_action(net, state, to_play):
 
     return int(action)
 
-# Step 55 - play_one_match (not yet solved)
-# TODO: implement
+# Step 55 - play_one_match
+def play_one_match(agent_one, agent_two, starting_player=1):
+    # TODO: play a full Connect-4 game between two callable agents and return the winner code.
+    state = make_empty_board()
+    to_play = starting_player
+
+    while True:
+        action = agent_one(state, to_play)
+        state, done, winner, to_play = step_env(state, action, to_play)
+
+        if not done:
+            action = agent_two(state, to_play)
+            state, done, winner, to_play = step_env(state, action, to_play)
+
+        if done:
+            break
+
+    return winner
 
 # Step 56 - match_win_rate (not yet solved)
 # TODO: implement
