@@ -419,10 +419,11 @@ def run_one_simulation(root, net, c_puct):
             value = -1.0
         elif winner != 0:
             value = 1.0
+        leaf['is_expanded'] = False
     else:
         priors, value = evaluate_with_network(net, leaf['board'], leaf['to_play'])
         leaf = expand_node(leaf, priors)
-    
+
     backup_value(leaf, value)
 
 # Step 36 - run_mcts (not yet solved)
