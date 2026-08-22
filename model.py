@@ -202,7 +202,7 @@ def init_policy_head(hidden_channels=16, num_columns=7):
     """Return an nn.Module mapping (B, hidden_channels, 6, 7) -> (B, num_columns) logits."""
     # TODO: build a small policy head that projects backbone features to column logits
     kernel_size = (1, 1)
-    out_channels = hidden_channels//4
+    out_channels = hidden_channels*2
     model = nn.Sequential(
         nn.Conv2d(hidden_channels, out_channels, kernel_size, padding='same'),
         nn.ReLU(),
