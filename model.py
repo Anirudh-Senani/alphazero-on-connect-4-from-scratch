@@ -219,7 +219,7 @@ import torch.nn as nn
 def init_value_head(hidden_channels=16):
     """Return an nn.Module mapping (B, hidden_channels, 6, 7) -> (B, 1) in (-1, 1)."""
     # TODO: build a value head that collapses backbone features to a single bounded scalar per board.
-    out_channels = hidden_channels//4
+    out_channels = hidden_channels*2
     kernel_size = (1, 1)
     model = nn.Sequential(
         nn.Conv2d(hidden_channels, out_channels, kernel_size, padding='same'),
