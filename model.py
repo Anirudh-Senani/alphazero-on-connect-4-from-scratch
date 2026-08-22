@@ -390,6 +390,7 @@ def expand_node(node, priors):
         node['children'][action] = make_mcts_node(priors[action], node)
         node['children'][action]['board'] = drop_piece(node['board'], action, node['to_play'])
         node['children'][action]['to_play'] = next_player
+        node['children'][action]['is_expanded'] = False
 
     return node
 
