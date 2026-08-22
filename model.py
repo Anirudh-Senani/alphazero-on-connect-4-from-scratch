@@ -362,7 +362,7 @@ def select_best_child(node, legal_actions, c_puct=1.5):
 def select_leaf(root, c_puct):
     # TODO: walk down the MCTS tree picking the best PUCT child until a non-expanded node is reached
     head = root
-    while head['is_expanded']:
+    while head.get('is_expanded', False):
         action, head = select_best_child(head, list(head['children'].keys()), c_puct)
 
     return head
@@ -408,8 +408,22 @@ def backup_value(leaf, value):
         node['parent']['value_sum'] += sign * value
         node = node['parent']
 
-# Step 35 - run_one_simulation (not yet solved)
-# TODO: implement
+# Step 35 - run_one_simulation
+def run_one_simulation(root, net, c_puct):
+    # TODO: run one MCTS simulation: select a leaf, evaluate, expand if non-terminal, backup.
+    leaf = select_leaf(root, c_puct)
+    done, winner = is_terminal(leaf['board'])
+    if done:
+        value = 0.0
+        if winner != 0 and winner != leaf['to_play']:
+            value = -1.0
+        elif winner != 0:
+            value = 1.0
+    else:
+        priors, value = evaluate_with_network(net, leaf['board'], leaf['to_play'])
+        leaf = expand_node(leaf, priors)
+    
+    backup_value(leaf, value)
 
 # Step 36 - run_mcts (not yet solved)
 # TODO: implement
