@@ -633,8 +633,20 @@ def training_epoch(net, optimizer, buffer, batch_size, policy_weight=1.0, value_
 
     return means
 
-# Step 51 - self_play_iteration (not yet solved)
-# TODO: implement
+# Step 51 - self_play_iteration
+def self_play_iteration(net, optimizer, num_games, num_simulations, c_puct, batch_size, num_epochs=1, temperature=1.0):
+    # TODO: generate a self-play buffer, then train on it for num_epochs and return buffer_size + losses
+    buffer = generate_self_play_batch(net, num_games, num_simulations, c_puct, temperature)
+    losses = []
+
+    for _ in range(num_epochs):
+        mean_losses = training_epoch(net, optimizer, buffer, batch_size)
+        losses.append(mean_losses)
+
+    return dict(
+        buffer_size=len(buffer),
+        losses=losses
+    )
 
 # Step 52 - train_loop (not yet solved)
 # TODO: implement
