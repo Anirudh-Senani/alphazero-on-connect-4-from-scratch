@@ -354,7 +354,7 @@ def ucb_score(parent, child, c_puct=1.5):
 # Step 30 - select_best_child
 def select_best_child(node, legal_actions, c_puct=1.5):
     # TODO: return (action, child) maximizing PUCT among legal children of node.
-    action = max(legal_actions, key=lambda x: ucb_score(node, node['children'][x], c_puct))
+    action = max(legal_actions, key=lambda x: (ucb_score(node, node['children'][x], c_puct), node['children'][x]['prior']))
     child = node['children'][action]
     return action, child
 
