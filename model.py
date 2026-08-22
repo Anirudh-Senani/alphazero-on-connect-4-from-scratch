@@ -381,8 +381,17 @@ def evaluate_with_network(net, state, to_play):
 
     return priors.squeeze(0).numpy(), float(value)
 
-# Step 33 - expand_node (not yet solved)
-# TODO: implement
+# Step 33 - expand_node
+def expand_node(node, priors):
+    # TODO: attach a child node for every legal move with the corresponding network prior
+    next_player = other_player(node['to_play'])
+    for action in valid_moves(node['board']):
+        node['is_expanded'] = True
+        node['children'][action] = make_mcts_node(priors[action], node)
+        node['children'][action]['board'] = drop_piece(node['board'], action, node['to_play'])
+        node['children'][action]['to_play'] = next_player
+
+    return node
 
 # Step 34 - backup_value (not yet solved)
 # TODO: implement
