@@ -604,7 +604,7 @@ def training_step(net, optimizer, minibatch, policy_weight=1.0, value_weight=1.0
 
     encoded_boards = encode_batch_states(batch['boards'], batch['to_plays'])
     target_values = torch.as_tensor(batch['values'], dtype=torch.float32).unsqueeze(0)
-    target_policy = torch.as_tensor(batch['policys'], dtype=torch.float32)
+    target_policy = torch.from_numpy(np.asarray(batch['policys']))
 
     predicted_policy, predicted_values = policy_value_forward(net, encoded_boards)
     mask = np.stack([action_mask(board) for board in batch['boards']])
