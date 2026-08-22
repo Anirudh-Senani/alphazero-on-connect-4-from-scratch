@@ -466,8 +466,11 @@ def mcts_choose_action(state, to_play, net, num_simulations, c_puct, temperature
 
     return int(torch.multinomial(torch.tensor(probs), 1)), probs
 
-# Step 39 - record_self_play_step (not yet solved)
-# TODO: implement
+# Step 39 - record_self_play_step
+def record_self_play_step(history, board, policy, to_play):
+    # TODO: append a dict with 'board', 'policy', 'to_play' to history and return history
+    history.append(dict(board=board.copy(), policy=policy.copy(), to_play=to_play))
+    return history
 
 # Step 40 - play_self_play_game (not yet solved)
 # TODO: implement
