@@ -246,6 +246,16 @@ class PolicyValueNet(nn.Module):
         self.policy_head = init_policy_head(hidden_channels, num_columns)
         self.value_head = init_value_head(hidden_channels)
 
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+
+            elif isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
 
     def forward(self, x):
         x = self.backbone(x)
