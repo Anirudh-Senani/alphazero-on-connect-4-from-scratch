@@ -666,7 +666,7 @@ def random_policy_action(state, to_play, rng=None):
     if rng is None:
         rng = np.random.default_rng()
 
-    return int(rng.choice(valid_moves((board))))
+    return int(rng.choice(valid_moves((state))))
 
 # Step 54 - greedy_agent_action
 def greedy_agent_action(net, state, to_play):
