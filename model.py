@@ -288,7 +288,7 @@ def masked_policy_logits(logits, mask):
     returns: torch.Tensor of same shape as logits
     """
     # TODO: replace logits at illegal columns with negative infinity
-    if len(logits.shape) > 1:
+    if len(logits.shape) > 1 and not (len(mask.shape) > 1):
         mask = mask[None, :]
     return torch.where(torch.tensor(mask), logits, -torch.inf)
 
