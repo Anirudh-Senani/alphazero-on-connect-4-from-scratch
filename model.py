@@ -553,8 +553,10 @@ def combined_loss(predicted_log_probs, predicted_values, target_policy, target_v
 
     return total_loss, dict(policy=policy_loss, value=value_loss, l2=l2_loss)
 
-# Step 47 - encode_batch_states (not yet solved)
-# TODO: implement
+# Step 47 - encode_batch_states
+def encode_batch_states(boards, to_plays):
+    # TODO: encode each (board, to_play) and stack into a (B, C, 6, 7) float tensor
+    return torch.from_numpy(np.stack([encode_board(board, to_play) for board, to_play in zip(boards, to_plays)]))
 
 # Step 48 - iterate_minibatches (not yet solved)
 # TODO: implement
